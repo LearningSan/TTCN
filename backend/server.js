@@ -67,8 +67,11 @@ app.use("/api/user",user);
 // thay vì cố định PORT
 // const PORT = 3000;
 
-// dùng biến môi trường PORT do Render cung cấp
 const PORT = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello from backend!');
+});
 
 app.listen(PORT, () => {
   console.log(`Server running at port ${PORT}`);
