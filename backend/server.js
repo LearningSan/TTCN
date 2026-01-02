@@ -64,7 +64,12 @@ app.use("/api/payments",payment);
 app.use("/api/addressJson", addressJson);
 app.use("/api/addresses",address);
 app.use("/api/user",user);
+// thay vì cố định PORT
+// const PORT = 3000;
 
-app.listen(3000, () =>
-  console.log("Server running at http://localhost:3000")
-);
+// dùng biến môi trường PORT do Render cung cấp
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running at port ${PORT}`);
+});
