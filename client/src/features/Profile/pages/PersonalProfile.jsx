@@ -4,7 +4,6 @@ import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router";
 import PersonalInfo from "../components/PersonalInfo";
 import ChangePassword from "../components/ChangePassword";
-
 export default function PersonalProfile() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
