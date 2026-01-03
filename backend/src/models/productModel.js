@@ -12,19 +12,19 @@ class productModel {
     i.invent_quantity_available AS product_stock,
     c.cate_name AS category_name
   FROM product p
-  LEFT JOIN Category c ON p.product_category_id = c.cate_id
-  LEFT JOIN Inventory i ON i.invent_product_id = p.product_id`);
+  LEFT JOIN category c ON p.product_category_id = c.cate_id
+  LEFT JOIN inventory i ON i.invent_product_id = p.product_id`);
 
     for (const product of rows) {
       const [images] = await db.execute(
-        "SELECT image_url FROM product_Image WHERE image_product_id = ?",
+        "SELECT image_url FROM product_image WHERE image_product_id = ?",
         [product.product_id]
       );
       product.images = images.map((img) => img.image_url); // gán mảng ảnh vào mỗi sản phẩm
       // ✅ THÊM: lấy ảnh cho từng sản phẩm
       for (const product of rows) {
         const [images] = await db.execute(
-          "SELECT image_url FROM product_Image WHERE image_product_id = ?",
+          "SELECT image_url FROM product_image WHERE image_product_id = ?",
           [product.product_id]
         );
         product.images = images.map((img) => img.image_url); // gán mảng ảnh vào mỗi sản phẩm
@@ -36,7 +36,7 @@ class productModel {
 
   static async filterByParentOfChild(childCateId) {
     const [childRow] = await db.execute(
-      "SELECT cate_name FROM Category WHERE cate_id = ?",
+      "SELECT cate_name FROM category WHERE cate_id = ?",
       [childCateId]
     );
     if (!childRow.length) return [];
@@ -54,7 +54,7 @@ class productModel {
     const [rows] = await db.execute(
       `SELECT p.*, i.invent_quantity_available AS product_stock
      FROM product p
-     LEFT JOIN Inventory i ON i.invent_product_id = p.product_id
+     LEFT JOIN inventory i ON i.invent_product_id = p.product_id
      WHERE ${likeConditions}`,
       params
     );
@@ -62,7 +62,7 @@ class productModel {
     // Lấy ảnh
     for (const product of rows) {
       const [images] = await db.execute(
-        "SELECT image_url FROM product_Image WHERE image_product_id = ?",
+        "SELECT image_url FROM product_image WHERE image_product_id = ?",
         [product.product_id]
       );
       product.images = images.map((img) => img.image_url);
@@ -162,7 +162,7 @@ class productModel {
       p.product_description,
       c.cate_name AS category_name
      FROM product p
-     LEFT JOIN Category c 
+     LEFT JOIN category c 
        ON p.product_category_id = c.cate_id
      WHERE p.product_id = ?`,
       [id]
@@ -171,7 +171,7 @@ class productModel {
     if (!product) return null;
 
     const [images] = await db.execute(
-      "SELECT image_url FROM product_Image WHERE image_product_id = ?",
+      "SELECT image_url FROM product_image WHERE image_product_id = ?",
       [id]
     );
 
