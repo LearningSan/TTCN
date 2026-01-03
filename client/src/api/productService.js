@@ -1,5 +1,4 @@
 import api from "./api";
-import axios from "axios";
 import { formatProductDetail, formatProducts } from "../helpers/formatProduct";
 export async function getProducts() {
   try {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import './Sidebar.css';
+import './SideBar.css';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 
 const Sidebar = ({
