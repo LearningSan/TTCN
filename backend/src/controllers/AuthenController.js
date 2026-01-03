@@ -13,7 +13,7 @@ class AuthenController {
       res.cookie("token", result.token, {
         httpOnly: true,
         secure: true, // true nếu dùng HTTPS
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 24 * 60 * 60 * 1000, // 1 ngày
       });
 
