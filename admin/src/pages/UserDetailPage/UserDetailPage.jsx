@@ -117,7 +117,7 @@ const UserDetail = () => {
     
     try {
       const res = await fetch(`https://www.onlysantech.id.vn/api/user/${id}/deactivate`, {
-        method: 'DELETE',
+        method: 'PUT',
         credentials: 'include'
       });
       
@@ -126,7 +126,7 @@ const UserDetail = () => {
       }
       
       alert('Đã vô hiệu hóa tài khoản');
-      navigate('/admin/users');
+      navigate('/userpage');
     } catch (err) {
       console.error('Deactivate user error:', err);
       alert('Vô hiệu hóa thất bại: ' + err.message);
