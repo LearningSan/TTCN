@@ -23,7 +23,10 @@ const allowedOrigins = [
   "http://localhost:5173", // admin
   "https://ttcn-nu.vercel.app"
   ,"https://ttcn-chi.vercel.app",
-  "https://ttcn-admin1.vercel.app"
+  "https://ttcn-admin1.vercel.app",
+  "http://appadmin.onlysantech.id.vn",
+  "http://app.onlysantech.id.vn"
+
 ];
 
 app.use(cors({

@@ -1,6 +1,6 @@
 const UserModel = require("../models/UserModel");
 const OrderModel = require("../models/OrderModel");
-const { sendEmail } =require("../utils/mailService");
+const { sendEmail } = require("../utils/mailService");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -40,9 +40,10 @@ class AuthenService {
   // SIGNUP
   static async signup(data) {
     const { email, password, first_name, last_name, phone } = data;
+    const fullName = `${first_name} ${last_name}`.replace(/\s+/g, " ").trim();
 
     // 1. Kiểm tra rỗng
-    if (!email || !password || !first_name || !last_name || !phone)
+    if (!email || !password || !fullName || !phone)
       return { error: "Vui lòng điền đầy đủ thông tin!" };
 
     // 2. Validate Email
