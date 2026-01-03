@@ -6,7 +6,7 @@ import Table from '../../components/Table/Table';
 import Pagination from '../../components/Pagination/Pagination';
 import Button from '../../components/Button/Button';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import './GenericDashboard.css';
+import './GenericDashBoard.css';
 
 const GenericDashboard = ({
   /* ===== Page info ===== */
