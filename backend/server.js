@@ -26,12 +26,13 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    // nếu origin là undefined (Postman, curl), cho phép
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    return callback(new Error("Not allowed by CORS"));
+    if (!origin) return callback(null, true); // Postman, curl
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(null, false); 
   },
-  credentials: true // cho phép cookie được gửi
+  credentials: true
 }));
 
 
