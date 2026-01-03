@@ -24,32 +24,16 @@ const allowedOrigins = [
   "https://ttcn-liart.vercel.app"
 ];
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // cho Postman, server gọi
-      if (!origin) return callback(null, true);
+app.use(cors({
+  origin: (origin, callback) => {
+    // nếu origin là undefined (Postman, curl), cho phép
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true // cho phép cookie được gửi
+}));
 
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      return callback(new Error("Not allowed by CORS"));
-    },
-    credentials: true,
-    origin: (origin, callback) => {
-      // cho Postman, server gọi
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      return callback(new Error("Not allowed by CORS"));
-    },
-    credentials: true,
-  })
-);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
