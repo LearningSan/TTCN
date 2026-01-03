@@ -10,7 +10,7 @@ export default function useVietnamAddress() {
 
   // Load tỉnh từ backend
   useEffect(() => {
-    fetch("http://localhost:3000/api/addressJson/provinces")
+    fetch("https://www.onlysantech.id.vn/api/addressJson/provinces")
       .then(res => res.json())
       .then(setProvinces)
       .catch(console.error);
@@ -20,7 +20,7 @@ export default function useVietnamAddress() {
   useEffect(() => {
     if (!provinceCode) return;
 
-    fetch(`http://localhost:3000/api/addressJson/districts/${provinceCode}`)
+    fetch(`https://www.onlysantech.id.vn/api/addressJson/districts/${provinceCode}`)
       .then(res => res.json())
       .then(data => {
         setDistricts(data);
@@ -33,7 +33,7 @@ export default function useVietnamAddress() {
   useEffect(() => {
     if (!districtCode) return;
 
-    fetch(`http://localhost:3000/api/addressJson/wards/${districtCode}`)
+    fetch(`https://www.onlysantech.id.vn/api/addressJson/wards/${districtCode}`)
       .then(res => res.json())
       .then(setWards)
       .catch(console.error);

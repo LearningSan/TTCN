@@ -21,7 +21,7 @@ const UserDashBoard = () => {
 
 
       setLoading(true);
-      const res = await fetch(`http://localhost:3000/api/user?page=${page}&limit=${itemsPerPage}`);
+      const res = await fetch(`https://www.onlysantech.id.vn/api/user?page=${page}&limit=${itemsPerPage}`);
       const result = await res.json();
 
       const payload = result.data || [];
@@ -63,7 +63,7 @@ const UserDashBoard = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/users/${row.user_id}/deactivate`,
+        `https://www.onlysantech.id.vn/api/users/${row.user_id}/deactivate`,
         { method: "PATCH" }
       );
 

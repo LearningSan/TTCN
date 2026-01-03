@@ -25,9 +25,9 @@ const UpdateProductPage = () => {
     let mounted = true;
 
     Promise.all([
-      fetch(`http://localhost:3000/api/products/${id}`).then(res => res.json()),
-      fetch(`http://localhost:3000/api/category`).then(res => res.json()),
-      fetch(`http://localhost:3000/api/inventory/${id}`).then(res => res.json())
+      fetch(`https://www.onlysantech.id.vn/api/products/${id}`).then(res => res.json()),
+      fetch(`https://www.onlysantech.id.vn/api/category`).then(res => res.json()),
+      fetch(`https://www.onlysantech.id.vn/api/inventory/${id}`).then(res => res.json())
     ])
       .then(([productData, categoriesData, inventoryData]) => {
         console.log("ProductData:", productData);
@@ -88,7 +88,7 @@ const UpdateProductPage = () => {
 
     const timeout = setTimeout(async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/products/check/${code}`);
+        const res = await fetch(`https://www.onlysantech.id.vn/api/products/check/${code}`);
         const data = await res.json();
 
         // Nếu mã tồn tại nhưng không phải chính sản phẩm đang update
@@ -277,7 +277,7 @@ const UpdateProductPage = () => {
 
         newImages.forEach(img => formData.append("images", img)); // backend expects upload.array("images")
 
-        const response = await fetch(`http://localhost:3000/api/products/${id}`, {
+        const response = await fetch(`https://www.onlysantech.id.vn/api/products/${id}`, {
           method: 'PUT',
           body: formData
         });
@@ -292,7 +292,7 @@ const UpdateProductPage = () => {
         }
       } else {
 
-        const response = await fetch(`http://localhost:3000/api/products/${id}`, {
+        const response = await fetch(`https://www.onlysantech.id.vn/api/products/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -316,7 +316,7 @@ const UpdateProductPage = () => {
 
       // Inventory update (kept as in your original code)
       if (product_stock != null) {
-        const inventoryResponse = await fetch(`http://localhost:3000/api/inventory/${id}/restock`, {
+        const inventoryResponse = await fetch(`https://www.onlysantech.id.vn/api/inventory/${id}/restock`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ amount: product_stock })
@@ -331,7 +331,7 @@ const UpdateProductPage = () => {
 
       // Refetch product to get updated images/fields and update frontend
       try {
-        const detailRes = await fetch(`http://localhost:3000/api/products/${id}`);
+        const detailRes = await fetch(`https://www.onlysantech.id.vn/api/products/${id}`);
         const detailData = await detailRes.json();
         let updated = detailData;
         if (Array.isArray(detailData)) {

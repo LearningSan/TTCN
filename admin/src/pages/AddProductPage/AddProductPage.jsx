@@ -28,7 +28,7 @@ const AddProductPage = () => {
       const [productData, setProductData] = useState(initialProductData);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/category")
+        fetch("https://www.onlysantech.id.vn/api/category")
             .then(res => res.json())
             .then(data => {
                 const childCategories = data.filter(c => c.cate_parent_id !== null);
@@ -46,7 +46,7 @@ const AddProductPage = () => {
 
         const timeout = setTimeout(async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/products/check/${code}`);
+                const res = await fetch(`https://www.onlysantech.id.vn/api/products/check/${code}`);
                 const data = await res.json();
 
                 if (!data.exists) {
@@ -165,7 +165,7 @@ const AddProductPage = () => {
                 formData.append("images", img);
             });
 
-            const productResponse = await fetch("http://localhost:3000/api/products", {
+            const productResponse = await fetch("https://www.onlysantech.id.vn/api/products", {
                 method: "POST",
                 body: formData
             });
@@ -187,7 +187,7 @@ const AddProductPage = () => {
             console.log("Created product:", productResult);
 
 
-            await fetch("http://localhost:3000/api/inventory", {
+            await fetch("https://www.onlysantech.id.vn/api/inventory", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

@@ -26,7 +26,7 @@ const UserDetail = () => {
 
   const fetchUserDetail = async () => {
     try {
-      const res = await fetch(`http://localhost:3000/api/user/${id}`, {
+      const res = await fetch(`https://www.onlysantech.id.vn/api/user/${id}`, {
         credentials: 'include' // Thay thế vớiCredentials: true
       });
       
@@ -66,7 +66,7 @@ const UserDetail = () => {
   const handleSave = async () => {
     try {
       // Update profile (name, phone)
-      await fetch(`http://localhost:3000/api/user/${id}/profile`, {
+      await fetch(`https://www.onlysantech.id.vn/api/user/${id}/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const UserDetail = () => {
 
       // Update role nếu thay đổi
       if (formData.user_role_type !== user.user_role_type) {
-        await fetch(`http://localhost:3000/api/user/${id}/role`, {
+        await fetch(`https://www.onlysantech.id.vn/api/user/${id}/role`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ const UserDetail = () => {
 
       // Update status nếu thay đổi
       if (formData.user_account_status !== user.user_account_status) {
-        await fetch(`http://localhost:3000/api/user/${id}/status`, {
+        await fetch(`https://www.onlysantech.id.vn/api/user/${id}/status`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ const UserDetail = () => {
     if (!window.confirm('Bạn có chắc muốn vô hiệu hóa tài khoản này?')) return;
     
     try {
-      const res = await fetch(`http://localhost:3000/api/user/${id}/deactivate`, {
+      const res = await fetch(`https://www.onlysantech.id.vn/api/user/${id}/deactivate`, {
         method: 'DELETE',
         credentials: 'include'
       });

@@ -16,7 +16,7 @@ const ProductDashboard = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:3000/api/products");
+      const res = await fetch("https://www.onlysantech.id.vn/api/products");
       const data = await res.json();
 
       // unwrap nếu backend trả nested array
@@ -51,7 +51,7 @@ const ProductDashboard = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`http://localhost:3000/api/products/${row.product_id}`, {
+      const response = await fetch(`https://www.onlysantech.id.vn/api/products/${row.product_id}`, {
         method: "DELETE"
       });
 
