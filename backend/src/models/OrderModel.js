@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require("uuid"); // npm install uuid
 class OrderModel {
   // Lấy order theo order_id
   static async getById(order_id) {
-    const [rows] = await db.execute("SELECT * FROM Orders WHERE order_id = ?", [
+    const [rows] = await db.execute("SELECT * FROM orders WHERE order_id = ?", [
       order_id,
     ]);
     return rows.length ? rows[0] : null;
@@ -29,7 +29,7 @@ class OrderModel {
     const order_id = uuidv4();
 
     await db.execute(
-      `INSERT INTO Orders (
+      `INSERT INTO orders (
             order_id,
             order_number,
             order_user_id,
@@ -64,7 +64,7 @@ class OrderModel {
   // Cập nhật trạng thái order
   static async updateStatus(order_id, order_status, payment_status) {
     const [result] = await db.execute(
-      `UPDATE Orders
+      `UPDATE orders
        SET order_status = ?, order_payment_status = ?
        WHERE order_id = ?`,
       [order_status, payment_status, order_id]
@@ -82,7 +82,7 @@ class OrderModel {
           order_status,
           order_payment_status,
           order_created_at
-       FROM Orders
+       FROM orders
        WHERE order_user_id = ?
        ORDER BY order_created_at DESC`,
       [user_id]
@@ -92,7 +92,7 @@ class OrderModel {
   static async mergeGuestOrders(userId, email) {
     await db.execute(
       `
-    UPDATE Orders
+    UPDATE orders
     SET 
       order_user_id = ?,
       guest_email = NULL
@@ -113,7 +113,7 @@ static async getHistoryByUserIdAndStatus(user_id, status) {
       order_status,
       order_payment_status,
       order_created_at
-    FROM Orders
+    FROM orders
     WHERE order_user_id = ?
   `;
   const params = [user_id];

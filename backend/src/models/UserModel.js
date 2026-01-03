@@ -3,7 +3,7 @@ const db = require("../config/db");
 class UserModel {
   static async getUserByEmail(email) {
     const [rows] = await db.execute(
-      "SELECT * FROM Users WHERE user_email = ?",
+      "SELECT * FROM users WHERE user_email = ?",
       [email]
     );
     return rows[0] || null;
@@ -16,7 +16,7 @@ class UserModel {
     phone,
   }) {
     const sql =
-      "INSERT INTO Users (user_email, user_password_hash, user_first_name, user_last_name, user_phone) VALUES (?, ?, ?, ?, ?)";
+      "INSERT INTO users (user_email, user_password_hash, user_first_name, user_last_name, user_phone) VALUES (?, ?, ?, ?, ?)";
 
     const [result] = await db.execute(sql, [
       email,
@@ -40,7 +40,7 @@ class UserModel {
         user_phone,
         user_role_type,
         user_account_status
-      FROM Users
+      FROM users
       WHERE user_id = ?
       `,
       [userId]
@@ -59,7 +59,7 @@ class UserModel {
       user_role_type,
       user_account_status,
       user_created_at
-    FROM Users
+    FROM users
     ORDER BY user_created_at DESC
   `);
 
@@ -68,7 +68,7 @@ class UserModel {
 
   static async getById(user_id) {
     const [rows] = await db.execute(
-      "SELECT * FROM Users WHERE user_id = ? LIMIT 1",
+      "SELECT * FROM users WHERE user_id = ? LIMIT 1",
       [user_id]
     );
 
@@ -77,7 +77,7 @@ class UserModel {
 
   static async updateProfile(user_id, data) {
     const sql = `
-    UPDATE Users SET
+    UPDATE users SET
       user_email = ?,
       user_first_name = ?,
       user_last_name = ?,
@@ -99,7 +99,7 @@ class UserModel {
 
   static async updatePassword(user_id, user_password_hash) {
     const [result] = await db.execute(
-      "UPDATE Users SET user_password_hash = ? WHERE user_id = ?",
+      "UPDATE users SET user_password_hash = ? WHERE user_id = ?",
       [user_password_hash, user_id]
     );
 
@@ -108,14 +108,14 @@ class UserModel {
 
   static async updateLastLogin(user_id) {
     await db.execute(
-      "UPDATE Users SET user_last_login = NOW() WHERE user_id = ?",
+      "UPDATE users SET user_last_login = NOW() WHERE user_id = ?",
       [user_id]
     );
   }
 
   static async verifyEmail(user_id) {
     const [result] = await db.execute(
-      "UPDATE Users SET user_email_verified = true WHERE user_id = ?",
+      "UPDATE users SET user_email_verified = true WHERE user_id = ?",
       [user_id]
     );
 
@@ -124,7 +124,7 @@ class UserModel {
 
   static async updateStatus(user_id, user_account_status) {
     const [result] = await db.execute(
-      "UPDATE Users SET user_account_status = ? WHERE user_id = ?",
+      "UPDATE users SET user_account_status = ? WHERE user_id = ?",
       [user_account_status, user_id]
     );
 
@@ -133,7 +133,7 @@ class UserModel {
 
   static async updateRole(user_id, user_role_type) {
     const [result] = await db.execute(
-      "UPDATE Users SET user_role_type = ? WHERE user_id = ?",
+      "UPDATE users SET user_role_type = ? WHERE user_id = ?",
       [user_role_type, user_id]
     );
 
@@ -142,7 +142,7 @@ class UserModel {
 
   static async deactivate(user_id) {
     const [result] = await db.execute(
-      "UPDATE Users SET user_account_status = 'inactive' WHERE user_id = ?",
+      "UPDATE users SET user_account_status = 'inactive' WHERE user_id = ?",
       [user_id]
     );
 
@@ -150,7 +150,7 @@ class UserModel {
   }
   static async updateOtp(user_id, otp, otp_expires) {
   const [result] = await db.execute(
-    "UPDATE Users SET reset_password_otp = ?, otp_expires = ? WHERE user_id = ?",
+    "UPDATE users SET reset_password_otp = ?, otp_expires = ? WHERE user_id = ?",
     [otp, otp_expires, user_id]
   );
 

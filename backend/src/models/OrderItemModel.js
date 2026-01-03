@@ -5,7 +5,7 @@ class OrderItemModel {
     // Lấy danh sách item theo order_id
     static async getByOrderId(order_id) {
         const [rows] = await db.execute(
-            "SELECT * FROM Order_Item WHERE order_id = ?",
+            "SELECT * FROM order_item WHERE order_id = ?",
             [order_id]
         );
         return rows;
@@ -24,7 +24,7 @@ class OrderItemModel {
         } = data;
 
         const [result] = await db.execute(
-            `INSERT INTO Order_Item (
+            `INSERT INTO order_item (
                 order_id,
                 product_id,
                 product_name,

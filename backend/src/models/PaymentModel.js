@@ -6,7 +6,7 @@ class PaymentModel {
     const paymentId = uuidv4();
 
     await db.query(
-      `INSERT INTO Payment
+      `INSERT INTO payment
       (payment_id, payment_order_id, payment_method, payment_amount)
       VALUES (?, ?, ?, ?)`,
       [paymentId, orderId, method, amount]
@@ -17,7 +17,7 @@ class PaymentModel {
 
   static async complete({ orderId, transactionId, details }) {
     await db.query(
-      `UPDATE Payment
+      `UPDATE payment
        SET payment_status='completed',
            payment_transaction_id=?,
            payment_date=NOW(),
@@ -29,7 +29,7 @@ class PaymentModel {
 
   static async fail(orderId, details) {
     await db.query(
-      `UPDATE Payment
+      `UPDATE payment
        SET payment_status='failed',
            payment_details=?
        WHERE payment_order_id=?`,

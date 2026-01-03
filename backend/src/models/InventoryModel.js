@@ -14,7 +14,7 @@ class InventoryModel {
                 i.invent_reorder_level,
                 i.invent_last_restocked,
                 i.invent_updated_at
-            FROM Inventory i
+            FROM inventory i
             LEFT JOIN Product p ON i.invent_product_id = p.product_id
         `);
         return rows;
@@ -23,7 +23,7 @@ class InventoryModel {
     // LẤY TỒN KHO THEO PRODUCT ID
     static async getById(productId) {
         const [rows] = await db.execute(
-            "SELECT * FROM Inventory WHERE invent_product_id = ?",
+            "SELECT * FROM inventory WHERE invent_product_id = ?",
             [productId]
         );
         return rows[0] || null;
@@ -33,7 +33,7 @@ class InventoryModel {
 
     static async create(data) {
         const sql = `
-            INSERT INTO Inventory
+            INSERT INTO inventory
             (invent_product_id, invent_quantity_available, invent_quantity_reserved, invent_reorder_level)
             VALUES (?, ?, ?, ?)
         `;
@@ -59,7 +59,7 @@ class InventoryModel {
         };
 
         const [result] = await db.execute(
-            "UPDATE Inventory SET invent_quantity_available = ?, invent_quantity_reserved = ?, invent_reorder_level = ? WHERE invent_product_id = ?",
+            "UPDATE inventory SET invent_quantity_available = ?, invent_quantity_reserved = ?, invent_reorder_level = ? WHERE invent_product_id = ?",
             [
                 updateData.invent_quantity_available,
                 updateData.invent_quantity_reserved,
@@ -75,7 +75,7 @@ class InventoryModel {
     // NHẬP THÊM HÀNG
     static async restock(productId, quantity) {
         const [result] = await db.execute(
-            `UPDATE Inventory 
+            `UPDATE inventory 
             SET invent_quantity_available = invent_quantity_available + ?, 
                 invent_last_restocked = NOW()
             WHERE invent_product_id = ?`,
@@ -88,7 +88,7 @@ class InventoryModel {
     // RESERVE (GIỮ HÀNG TRONG GIỎ)
     static async reserve(productId, amount) {
         const [result] = await db.execute(
-            `UPDATE Inventory
+            `UPDATE inventory
              SET invent_quantity_available = invent_quantity_available - ?, 
                  invent_quantity_reserved = invent_quantity_reserved + ?
              WHERE invent_product_id = ?`,
@@ -102,7 +102,7 @@ class InventoryModel {
 
     static async unreserve(productId, amount) {
         const [result] = await db.execute(
-            `UPDATE Inventory
+            `UPDATE inventory
              SET invent_quantity_available = invent_quantity_available + ?, 
                  invent_quantity_reserved = invent_quantity_reserved - ?
              WHERE invent_product_id = ?`,
@@ -116,7 +116,7 @@ class InventoryModel {
     static async getAvailableStock(productId) {
         const [rows] = await db.execute(
             `SELECT invent_quantity_available 
-             FROM Inventory 
+             FROM inventory 
              WHERE invent_product_id = ?`,
             [productId]
         );
@@ -128,7 +128,7 @@ class InventoryModel {
     // GIẢM STOCK KHI TẠO ĐƠN HÀNG (DEDUCT)
     static async deduct(productId, quantity) {
         const [result] = await db.execute(
-            `UPDATE Inventory
+            `UPDATE inventory
              SET invent_quantity_available = invent_quantity_available - ?
              WHERE invent_product_id = ?`,
             [quantity, productId]
@@ -141,7 +141,7 @@ class InventoryModel {
     // TĂNG STOCK KHI HỦY ĐƠN / REFUND
     static async returnStock(productId, quantity) {
         const [result] = await db.execute(
-            `UPDATE Inventory
+            `UPDATE inventory
              SET invent_quantity_available = invent_quantity_available + ?
              WHERE invent_product_id = ?`,
             [quantity, productId]

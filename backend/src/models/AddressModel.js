@@ -7,7 +7,7 @@ class AddressModel {
     static async getByUserId(user_id) {
         const [rows] = await db.execute(
             `SELECT *
-             FROM Shipping_Address
+             FROM shipping_address
              WHERE address_user_id = ?
              ORDER BY address_is_default DESC, address_created_at DESC`,
             [user_id]
@@ -19,7 +19,7 @@ class AddressModel {
     static async getDefaultByUserId(user_id) {
         const [rows] = await db.execute(
             `SELECT *
-             FROM Shipping_Address
+             FROM shipping_address
              WHERE address_user_id = ?
              ORDER BY address_is_default DESC, address_created_at DESC
              LIMIT 1`,
@@ -31,7 +31,7 @@ class AddressModel {
     // Lấy address theo id
     static async getById(address_id) {
         const [rows] = await db.execute(
-            `SELECT * FROM Shipping_Address WHERE address_id = ?`,
+            `SELECT * FROM shipping_address WHERE address_id = ?`,
             [address_id]
         );
         return rows.length ? rows[0] : null;
@@ -53,7 +53,7 @@ static async create(data) {
     const address_id = uuidv4(); // tạo UUID mới
 
     await db.execute(
-        `INSERT INTO Shipping_Address (
+        `INSERT INTO shipping_address (
             address_id,
             address_user_id,
             address_recipient_name,
@@ -84,14 +84,14 @@ static async create(data) {
     // Set địa chỉ mặc định
     static async setDefault(address_id, user_id) {
         await db.execute(
-            `UPDATE Shipping_Address
+            `UPDATE shipping_address
              SET address_is_default = 0
              WHERE address_user_id = ?`,
             [user_id]
         );
 
         const [result] = await db.execute(
-            `UPDATE Shipping_Address
+            `UPDATE shipping_address
              SET address_is_default = 1
              WHERE address_id = ?`,
             [address_id]
@@ -103,7 +103,7 @@ static async create(data) {
     // Xoá address
     static async delete(address_id) {
         const [result] = await db.execute(
-            `DELETE FROM Shipping_Address WHERE address_id = ?`,
+            `DELETE FROM shipping_address WHERE address_id = ?`,
             [address_id]
         );
         return result;

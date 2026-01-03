@@ -1,6 +1,6 @@
 const db = require("../config/db"); // hoặc require nếu dùng CommonJS
 
-class ProductModel {
+class productModel {
   static async getAll() {
     // Lấy tất cả sản phẩm
     const [rows] = await db.execute(`SELECT 
@@ -11,20 +11,20 @@ class ProductModel {
     p.product_brand,
     i.invent_quantity_available AS product_stock,
     c.cate_name AS category_name
-  FROM Product p
+  FROM product p
   LEFT JOIN Category c ON p.product_category_id = c.cate_id
   LEFT JOIN Inventory i ON i.invent_product_id = p.product_id`);
 
     for (const product of rows) {
       const [images] = await db.execute(
-        "SELECT image_url FROM Product_Image WHERE image_product_id = ?",
+        "SELECT image_url FROM product_Image WHERE image_product_id = ?",
         [product.product_id]
       );
       product.images = images.map((img) => img.image_url); // gán mảng ảnh vào mỗi sản phẩm
       // ✅ THÊM: lấy ảnh cho từng sản phẩm
       for (const product of rows) {
         const [images] = await db.execute(
-          "SELECT image_url FROM Product_Image WHERE image_product_id = ?",
+          "SELECT image_url FROM product_Image WHERE image_product_id = ?",
           [product.product_id]
         );
         product.images = images.map((img) => img.image_url); // gán mảng ảnh vào mỗi sản phẩm
@@ -53,7 +53,7 @@ class ProductModel {
 
     const [rows] = await db.execute(
       `SELECT p.*, i.invent_quantity_available AS product_stock
-     FROM Product p
+     FROM product p
      LEFT JOIN Inventory i ON i.invent_product_id = p.product_id
      WHERE ${likeConditions}`,
       params
@@ -62,7 +62,7 @@ class ProductModel {
     // Lấy ảnh
     for (const product of rows) {
       const [images] = await db.execute(
-        "SELECT image_url FROM Product_Image WHERE image_product_id = ?",
+        "SELECT image_url FROM product_Image WHERE image_product_id = ?",
         [product.product_id]
       );
       product.images = images.map((img) => img.image_url);
@@ -150,7 +150,7 @@ class ProductModel {
 
     return db.execute(sql, values); // số row bị cập nhật
   }
-  // ProductModel.js
+  // productModel.js
   static async getDetailWithImages(id) {
     const [[product]] = await db.execute(
       `SELECT 
@@ -161,7 +161,7 @@ class ProductModel {
       p.product_brand,
       p.product_description,
       c.cate_name AS category_name
-     FROM Product p
+     FROM product p
      LEFT JOIN Category c 
        ON p.product_category_id = c.cate_id
      WHERE p.product_id = ?`,
@@ -171,7 +171,7 @@ class ProductModel {
     if (!product) return null;
 
     const [images] = await db.execute(
-      "SELECT image_url FROM Product_Image WHERE image_product_id = ?",
+      "SELECT image_url FROM product_Image WHERE image_product_id = ?",
       [id]
     );
 
@@ -181,4 +181,4 @@ class ProductModel {
   }
 }
 
-module.exports = ProductModel;
+module.exports = productModel;

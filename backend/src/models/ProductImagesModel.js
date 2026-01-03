@@ -3,7 +3,7 @@ const db = require("../config/db");
 class ProductImagesModel {
      static async create(data) {
         const sql = `
-            INSERT INTO Product_Image (image_product_id,image_url)
+            INSERT INTO product_image (image_product_id,image_url)
             VALUES (?, ?)
         `;
 
@@ -18,11 +18,11 @@ class ProductImagesModel {
 
 
   static deleteByProductId(productId) {
-    return db.execute("DELETE FROM Product_Image WHERE image_product_id = ?", [productId]);
+    return db.execute("DELETE FROM product_image WHERE image_product_id = ?", [productId]);
   }
 
   static getByProductId(productId) {
-    return db.execute("SELECT * FROM Product_Image WHERE image_product_id = ?", [productId]);
+    return db.execute("SELECT * FROM product_image WHERE image_product_id = ?", [productId]);
   }
 }
 
