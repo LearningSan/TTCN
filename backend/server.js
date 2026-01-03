@@ -21,6 +21,7 @@ app.use(cookieParser()); // ✅ BẮT BUỘC, TOÀN APP
 const allowedOrigins = [
   "http://localhost:3001", // client
   "http://localhost:5173", // admin
+  "https://ttcn-liart.vercel.app/"
 ];
 
 app.use(
