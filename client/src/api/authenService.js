@@ -17,7 +17,7 @@ export const signupApi =async (body) => {
 
 export const loginApi =async (email, password) => {
   return await api.post(
-    `/login`,
+    `authen/login`,
     { email, password },)
 };
 
