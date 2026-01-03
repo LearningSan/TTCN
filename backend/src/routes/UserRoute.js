@@ -31,6 +31,6 @@ router.put("/:id/role",UserController.updateRole);
 router.put("/:id/status",UserController.updateStatus);
 
 // admin deactivate
-router.delete("/:id/deactivate", UserController.deactivate);
+router.put("/:id/deactivate", UserController.deactivate);
 
 module.exports = router;

@@ -193,45 +193,18 @@ const UserDetail = () => {
 
             <div className="info-row">
               <label>Họ và tên:</label>
-              {isEditing ? (
-                <div className="edit-fields">
-                  <input
-                    type="text"
-                    name="user_first_name"
-                    value={formData.user_first_name}
-                    onChange={handleInputChange}
-                    placeholder="Họ"
-                    className="name-input"
-                  />
-                  <input
-                    type="text"
-                    name="user_last_name"
-                    value={formData.user_last_name}
-                    onChange={handleInputChange}
-                    placeholder="Tên"
-                    className="name-input"
-                  />
-                </div>
-              ) : (
-                <div className="info-value">
+             
+              <div className="info-value">
                   {user.user_first_name} {user.user_last_name}
                 </div>
-              )}
+            
             </div>
 
             <div className="info-row">
               <label>Số điện thoại:</label>
-              {isEditing ? (
-                <input
-                  type="text"
-                  name="user_phone"
-                  value={formData.user_phone}
-                  onChange={handleInputChange}
-                  className="edit-input"
-                />
-              ) : (
+             
                 <div className="info-value">{user.user_phone || 'Chưa có'}</div>
-              )}
+              
             </div>
 
             <div className="info-row">
@@ -290,16 +263,12 @@ const UserDetail = () => {
                 >
                   <option value="active">Đang hoạt động</option>
                   <option value="inactive">Đã vô hiệu hóa</option>
-                  <option value="suspended">Tạm khóa</option>
-                  <option value="pending">Chờ xác nhận</option>
+          
                 </select>
               ) : (
                 <div className="info-value">
                   <span className={`status-text ${user.user_account_status}`}>
-                    {user.user_account_status === 'active' ? '✅ Đang hoạt động' :
-                     user.user_account_status === 'inactive' ? '❌ Đã vô hiệu hóa' :
-                     user.user_account_status === 'suspended' ? '⚠️ Tạm khóa' :
-                     '⏳ Chờ xác nhận'}
+                    {user.user_account_status === 'active' ? '✅ Đang hoạt động' : '❌ Đã vô hiệu hóa'}
                   </span>
                 </div>
               )}
