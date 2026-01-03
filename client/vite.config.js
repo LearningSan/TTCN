@@ -7,9 +7,7 @@ export default defineConfig({
         port: 3001,  // 👈 đổi port tại đây
 
     proxy: {
-      
       "/api": "http://localhost:3000",      // proxy API
-      "/images": "http://localhost:3000"    // proxy ảnh
     }
   }
 });

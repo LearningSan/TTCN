@@ -1,9 +1,9 @@
-// product.js
+import api from "./api";
 import axios from "axios";
 import { formatProductDetail, formatProducts } from "../helpers/formatProduct";
 export async function getProducts() {
   try {
-    const res = await axios.get("http://localhost:3000/api/products");
+    const res =await api.get("/products");
     const rows = res.data;
     return formatProducts(rows); // gọi helper
   } catch (error) {
@@ -14,8 +14,8 @@ export async function getProducts() {
 
 export async function filterProducts(id) {
   try {
-    const res = await axios.get(
-      `http://localhost:3000/api/products/filter/${id}`
+    const res =await api.get(
+      `/products/filter/${id}`
     );
     return formatProducts(res.data);
   } catch (error) {
@@ -27,8 +27,8 @@ export async function filterProducts(id) {
 // productService.js
 export async function getDetail(id) {
   try {
-    const res = await axios.get(
-      `http://localhost:3000/api/products/detail/${id}`
+    const res =await api.get(
+      `/products/detail/${id}`
     );
     return formatProductDetail(res.data);
   } catch (error) {

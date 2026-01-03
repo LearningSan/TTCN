@@ -1,11 +1,9 @@
 // src/api/paymentService.js
-import axios from "axios";
 
-const API = "http://localhost:3000/api/payments";
-
+import api from "./api";
 export const createVnpayPayment = async ({ orderId, amount }) => {
-  const res = await axios.post(
-    `${API}/vnpay/create`,
+  const res = await api.post(
+    `/vnpay/create`,
     { orderId, amount },
     {
       headers: {
@@ -19,8 +17,8 @@ export const createVnpayPayment = async ({ orderId, amount }) => {
 };
 
 export const createMomoPayment = async ({ orderId, amount }) => {
-  const res = await axios.post(
-    `${API}/momo/create`,
+  const res = await api.post(
+    `/momo/create`,
     { orderId, amount },
     {
       headers: {

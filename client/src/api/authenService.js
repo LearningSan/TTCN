@@ -1,51 +1,36 @@
 // api/authenService.js
-import axios from "axios";
+import api from "./api";
 
-const API_URL = "http://localhost:3000/api/authen";
-
-export const fetchMe = () => {
-  return axios.get(`${API_URL}/me`, {
-    withCredentials: true,
-  });
+export const fetchMe = async () => {
+  return await api.get(`/me`);
 };
-export const updateProfileApi = (body) => {
-  return axios.put(`${API_URL}/me/profile`, body, {
-    withCredentials: true,
-  });
+export const updateProfileApi = async (body) => {
+  return await api.put(`/me/profile`, body);
 };
-export const changePasswordApi = (body) => {
-  return axios.put(`${API_URL}/me/password`, body, {
-    withCredentials: true,
-  });
+export const changePasswordApi =async (body) => {
+  return await api.put(`/me/password`, body);
 };
 
-export const signupApi = (body) => {
-  return axios.post(`${API_URL}/signup`, body, {
-    headers: { "Content-Type": "application/json" },
-  });
+export const signupApi =async (body) => {
+  return await api.post(`/signup`, body);
 };
 
-export const loginApi = (email, password) => {
-  return axios.post(
-    `${API_URL}/login`,
-    { email, password },
-    { withCredentials: true }
-  );
+export const loginApi =async (email, password) => {
+  return await api.post(
+    `/login`,
+    { email, password },)
 };
 
-export const logoutApi = () => {
-  return axios.post(
-    `${API_URL}/logout`,
-    {},
-    { withCredentials: true }
-  );
+export const logoutApi =async () => {
+  return await api.post(
+    `/logout`)
 };
 // gửi OTP quên mật khẩu
-export const sendResetPasswordOtpApi = (email) => {
-  return axios.post(`${API_URL}/forgot-password`, { email });
+export const sendResetPasswordOtpApi =async (email) => {
+  return await api.post(`/forgot-password`, { email });
 };
 
 // đặt lại mật khẩu
-export const resetPasswordApi = ({ email, otp, newPassword }) => {
-  return axios.post(`${API_URL}/reset-password`, { email, otp, newPassword });
+export const resetPasswordApi =async ({ email, otp, newPassword }) => {
+  return await api.post(`/reset-password`, { email, otp, newPassword });
 };
